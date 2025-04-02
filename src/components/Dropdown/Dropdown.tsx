@@ -19,9 +19,14 @@ export const Dropdown: React.FC<Props> = React.memo(
 
     const handleChange = useCallback(
       (event: React.ChangeEvent<HTMLInputElement>) => {
-        setQuery(event.target.value);
-        applyQuery(event.target.value.trim());
+        const value = event.target.value;
+
+        setQuery(value);
         onSelected(null);
+
+        if (value.trim()) {
+          applyQuery(value.trim());
+        }
       },
       [],
     );
