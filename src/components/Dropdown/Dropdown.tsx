@@ -16,6 +16,7 @@ export const Dropdown: React.FC<Props> = React.memo(
     const [isDropDown, setIsDropDown] = useState(false);
 
     const applyQuery = useCallback(debounce(setAppliedQuery, delay), [delay]);
+    const hideDropdown = useCallback(debounce(setIsDropDown, delay), [delay]);
 
     const handleChange = useCallback(
       (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -23,10 +24,7 @@ export const Dropdown: React.FC<Props> = React.memo(
 
         setQuery(value);
         onSelected(null);
-
-        if (value.trim()) {
-          applyQuery(value.trim());
-        }
+        applyQuery(value.trim());
       },
       [],
     );
@@ -48,7 +46,7 @@ export const Dropdown: React.FC<Props> = React.memo(
             value={query}
             onChange={handleChange}
             onFocus={() => setIsDropDown(true)}
-            onBlur={() => setTimeout(() => setIsDropDown(false), delay)}
+            onBlur={() => hideDropdown(false)}
           />
         </div>
 
